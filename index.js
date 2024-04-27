@@ -34,6 +34,13 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     })
+    
+    app.get("/mycraft/:email", async(req, res)=> {
+      const email = req.params.email;
+      const query = { user_email: email };
+      const result = await artsAndCraftCollection.find(query).toArray();
+      res.send(result)
+    });
 
     app.post('/artcraft',async(req, res) => {
       const newData = req.body;
