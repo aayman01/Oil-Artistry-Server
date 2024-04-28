@@ -55,6 +55,28 @@ async function run() {
       res.send(result);
     })
 
+    app.put("/artcraft/:id", async (req, res) => {
+      const id = req.params.id;
+      const data = req.body;
+      const filter = {_id : new ObjectId(id)};
+      const option = {upsart : true};
+      const updatedData = {
+        $set : {
+          item_name : data.item_name,
+          short_description : data.short_description,
+          subcategory_Name : data.subcategory_Name,
+          price : data.price,
+          photoUrl : data.photoUrl,
+          customization : data.customization,
+          rating : data.rating,
+          status : data.status,
+          processing_time : data.processing_time,
+        }
+      };
+      const result = await artsAndCraftCollection.updateOne(filter, updatedData, option);
+      res.send(result);
+    })
+
     app.delete("/artcraft/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
