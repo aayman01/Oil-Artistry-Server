@@ -28,6 +28,7 @@ async function run() {
     const artsAndCraftCollection = client
       .db("ArtsCraftsDB")
       .collection("artscraft");
+    const artsAndCraftCategories = client.db("ArtsCraftsDB").collection("data");
 
     app.get("/artcraft", async (req, res) => {
       const cursor = artsAndCraftCollection.find();
@@ -42,6 +43,11 @@ async function run() {
       res.send(result);
     });
 
+    app.get("/subcategory", async(req, res) => {
+      const cursor = artsAndCraftCategories.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
     app.get("/craft/:customization", async (req, res) => {
       const customization = req.params.customization;
       const query = {customization :customization }
