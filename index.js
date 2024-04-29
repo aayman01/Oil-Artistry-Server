@@ -55,6 +55,12 @@ async function run() {
       res.send(result)
     });
 
+    app.get("/data/:subcategory", async (req, res) => {
+      const subcategory = req.params.subcategory;
+      const query = { subcategory_Name: subcategory };
+      const result = await artsAndCraftCollection.find(query).toArray();
+      res.send(result);
+    });
 
     app.get("/mycraft/:email", async (req, res) => {
       const email = req.params.email;
